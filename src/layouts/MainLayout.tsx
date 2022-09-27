@@ -8,7 +8,7 @@ interface MainLayoutProps {
 	children: React.ReactElement;
 }
 
-export const MainLayout = (props: MainLayoutProps) => {
+export const MainLayout = () => {
 	return (
 		<Box sx={{ width: "100%", height: "100%" }}>
 			<Header />
@@ -22,7 +22,16 @@ export const MainLayout = (props: MainLayoutProps) => {
 				}}
 			>
 				<SideBar />
-				<Outlet />
+				<Box
+					sx={{
+						marginLeft: "256px",
+						height: "100%",
+						width: "calc(100% - 256px)",
+						backgroundColor: colors.grey[200],
+					}}
+				>
+					<Outlet />
+				</Box>
 			</Box>
 		</Box>
 	);

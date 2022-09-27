@@ -18,7 +18,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@components/*": ["./src/components/*"],
-			"@pages/*": ["./src/atoms/*"],
+			"@pages/*": ["./src/pages/*"],
 			"@layouts/*": ["./src/layouts/*"]
 		}
 	},

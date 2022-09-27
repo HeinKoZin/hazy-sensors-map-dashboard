@@ -46,6 +46,9 @@ export const Header = () => {
 	return (
 		<AppBar position="fixed" elevation={2} color={"inherit"}>
 			<Toolbar>
+				<IconButton sx={{ mr: 1.5 }}>
+					<MenuIcon />
+				</IconButton>
 				<SensorsIcon
 					sx={{
 						fontSize: 30,
@@ -67,25 +70,11 @@ export const Header = () => {
 						fontWeight: 700,
 						color: "inherit",
 						textDecoration: "none",
-						display: "flex",
 						alignItems: "center",
+						display: { xs: "none", md: "flex" },
 					}}
 				>
-					Hazy Sensors <Box sx={{ width: 5 }} />
-					<Typography
-						variant="h6"
-						noWrap
-						component="a"
-						sx={{
-							fontFamily: "Quicksand",
-							fontWeight: 700,
-							display: { xs: "none", md: "flex" },
-							color: "inherit",
-							textDecoration: "none",
-						}}
-					>
-						Dashboard
-					</Typography>
+					Hazy Sensors Dashboard
 				</Typography>
 			</Toolbar>
 		</AppBar>

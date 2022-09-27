@@ -19,7 +19,7 @@ export const SideBar = () => {
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 	return (
 		<Drawer
-			variant={"permanent"}
+			variant={"persistent"}
 			open={true}
 			sx={{ position: "relative", zIndex: 1 }}
 		>
@@ -77,8 +77,9 @@ const StyledButton = styled(Button)<{ path: string }>(({ theme, path }) => ({
 			: alpha(theme.palette.common.black, 0.06),
 	},
 	justifyContent: "start",
-	paddingTop: theme.spacing(2),
-	paddingBottom: theme.spacing(2),
+	paddingTop: theme.spacing(1.7),
+	paddingBottom: theme.spacing(1.7),
 	paddingLeft: theme.spacing(3),
 	textTransform: "capitalize",
+	fontSize: 16,
 }));
