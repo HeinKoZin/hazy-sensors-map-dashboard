@@ -15,40 +15,15 @@ import SensorsIcon from "@mui/icons-material/Sensors";
 import { colors, useTheme } from "@mui/material";
 import { ThemeContext } from "@emotion/react";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
-
 export const Header = () => {
-	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-		null
-	);
-	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-		null
-	);
-
-	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElNav(event.currentTarget);
-	};
-	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElUser(event.currentTarget);
-	};
-
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
-	};
-
-	const handleCloseUserMenu = () => {
-		setAnchorElUser(null);
-	};
-
 	const theme = useTheme();
 
 	return (
 		<AppBar position="fixed" elevation={2} color={"inherit"}>
 			<Toolbar>
-				<IconButton sx={{ mr: 1.5 }}>
+				{/* <IconButton sx={{ mr: 1.5 }}>
 					<MenuIcon />
-				</IconButton>
+				</IconButton> */}
 				<SensorsIcon
 					sx={{
 						fontSize: 30,
@@ -72,6 +47,9 @@ export const Header = () => {
 						textDecoration: "none",
 						alignItems: "center",
 						display: { xs: "none", md: "flex" },
+						"&:hover": {
+							color: "inherit",
+						},
 					}}
 				>
 					Hazy Sensors Dashboard

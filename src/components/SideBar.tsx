@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { useMatch } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 
 export const SideBar = () => {
@@ -57,8 +57,13 @@ interface MenuItemProps {
 }
 
 const MenuItem = (props: MenuItemProps) => {
+	const navigate = useNavigate();
 	return (
-		<StyledButton path={props.path} startIcon={<HomeIcon />}>
+		<StyledButton
+			path={props.path}
+			startIcon={<HomeIcon />}
+			onClick={() => navigate(props.path)}
+		>
 			{props.title}
 		</StyledButton>
 	);

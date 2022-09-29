@@ -19,7 +19,8 @@
 		"paths": {
 			"@components/*": ["./src/components/*"],
 			"@pages/*": ["./src/pages/*"],
-			"@layouts/*": ["./src/layouts/*"]
+			"@layouts/*": ["./src/layouts/*"],
+			"@apis/*": ["./src/apis/*"]
 		}
 	},
 	"include": ["src"],
