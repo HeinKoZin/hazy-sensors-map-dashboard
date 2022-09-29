@@ -17,7 +17,7 @@ import {
 	Typography,
 } from "@mui/material";
 import moment from "moment";
-import React from "react";
+import React, { useRef } from "react";
 
 export const HomePage = () => {
 	const { data: sensors, mutate: refreshSensors } = useAllSensors();
@@ -53,6 +53,7 @@ export const HomePage = () => {
 				}}
 			>
 				<AddSensorModal />
+
 				<Button sx={{ textTransform: "capitalize" }}>Export</Button>
 			</Box>
 			<TableContainer component={Paper}>
@@ -85,13 +86,6 @@ export const HomePage = () => {
 								<StyledTableCell
 									sx={{ display: "flex", gap: 1, justifyContent: "center" }}
 								>
-									<Button
-										variant="contained"
-										sx={{ backgroundColor: colors.blue[600] }}
-									>
-										Edit
-									</Button>
-
 									<Button
 										variant="contained"
 										sx={{ backgroundColor: colors.red[600] }}
@@ -129,20 +123,48 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
-const style = {
-	position: "absolute" as "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: 400,
-	bgcolor: "background.paper",
-	p: 4,
-};
-
 const AddSensorModal = () => {
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
+
+	const deviceIdRef = useRef<HTMLInputElement>(null);
+	const pmValueRef = useRef<HTMLInputElement>(null);
+	const longitudeRef = useRef<HTMLInputElement>(null);
+	const latitudeRef = useRef<HTMLInputElement>(null);
+
+	const createSensor = async () => {
+		const deviceId = deviceIdRef.current?.value;
+		const pmValue = pmValueRef.current?.value;
+		const longitude = longitudeRef.current?.value;
+		const latitude = latitudeRef.current?.value;
+
+		if (deviceId && pmValue && longitude && longitude) {
+			const data = await fetch(
+				import.meta.env.VITE_API_URL + `sensors/create`,
+				{
+					method: "post",
+					headers: new Headers({
+						Accept: "application/json",
+						"Content-Type": "application/json",
+					}),
+					body: JSON.stringify({
+						device_id: deviceId,
+						lat: latitude,
+						lng: longitude,
+						pmValue: pmValue,
+					}),
+				}
+			).then(
+				(res) => res.body as unknown as { message: string; success: boolean }
+			);
+
+			if (data.success) {
+				console.log(data.message);
+				handleClose();
+			}
+		}
+	};
 
 	return (
 		<div>
@@ -164,8 +186,8 @@ const AddSensorModal = () => {
 						transform: "translate(-50%, -50%)",
 						width: 400,
 						bgcolor: "background.paper",
-						p: 6,
-						gap: 3,
+						p: 4,
+						gap: 2,
 						display: "flex",
 						flexDirection: "column",
 					}}
@@ -175,24 +197,28 @@ const AddSensorModal = () => {
 						id="outlined-basic"
 						label="Device ID"
 						variant="outlined"
+						inputRef={deviceIdRef}
 						fullWidth
 					/>
 					<TextField
 						id="outlined-basic"
 						label="PM2.5 Value"
 						variant="outlined"
+						inputRef={pmValueRef}
 						fullWidth
 					/>
 					<TextField
 						id="outlined-basic"
 						label="Longitude"
 						variant="outlined"
+						inputRef={longitudeRef}
 						fullWidth
 					/>
 					<TextField
 						id="outlined-basic"
 						label="Latitude"
 						variant="outlined"
+						inputRef={latitudeRef}
 						fullWidth
 					/>
 					<Box sx={{ display: "flex", gap: 2 }}>
@@ -204,7 +230,11 @@ const AddSensorModal = () => {
 						>
 							Cancel
 						</Button>
-						<Button variant="contained" fullWidth>
+						<Button
+							variant="contained"
+							onClick={() => createSensor()}
+							fullWidth
+						>
 							Create
 						</Button>
 					</Box>

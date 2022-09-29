@@ -4,6 +4,7 @@ import zIndex from "@mui/material/styles/zIndex";
 import React from "react";
 import JsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { useAllSensors } from "@apis/useAllSensor";
 
 const generatePDF = () => {
 	const data = document.querySelector("#report") as HTMLElement;

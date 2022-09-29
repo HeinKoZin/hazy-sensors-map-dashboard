@@ -1,9 +1,10 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { Group } from "@vx/group";
 import { GradientOrangeRed, GradientPinkRed } from "@vx/gradient";
 import { RectClipPath } from "@vx/clip-path";
 import { voronoi, VoronoiPolygon } from "@vx/voronoi";
 import { localPoint } from "@vx/event";
+import { AllSensorList, useAllSensors } from "@apis/useAllSensor";
 
 type Datum = {
 	x: number;
@@ -16,8 +17,6 @@ const data: Datum[] = new Array(20).fill(null).map(() => ({
 	y: Math.random(),
 	id: Math.random().toString(36).slice(2),
 }));
-
-console.log(data);
 
 const neighborRadius = 75;
 
