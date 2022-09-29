@@ -25,9 +25,7 @@ export const MainLayout = () => {
 				<Box
 					sx={{
 						marginLeft: "256px",
-						height: "100%",
 						width: "calc(100% - 256px)",
-						backgroundColor: colors.grey[200],
 					}}
 				>
 					<Outlet />

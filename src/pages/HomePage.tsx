@@ -18,6 +18,8 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import React, { useRef } from "react";
+import JsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 export const HomePage = () => {
 	const { data: sensors, mutate: refreshSensors } = useAllSensors();
@@ -41,6 +43,18 @@ export const HomePage = () => {
 			refreshSensors();
 		}
 	};
+
+	const exportData = () => {
+		const data = document.querySelector("#table") as HTMLElement;
+		html2canvas(data).then((canvas) => {
+			const imgData = canvas.toDataURL("image/png");
+			const pdf = new JsPDF();
+			pdf.addImage(imgData, "PNG", 0, 0);
+			// pdf.output('dataurlnewwindow');
+			pdf.save("download.pdf");
+		});
+	};
+
 	return (
 		<Box sx={{ p: 2 }}>
 			<Box
@@ -54,9 +68,14 @@ export const HomePage = () => {
 			>
 				<AddSensorModal />
 
-				<Button sx={{ textTransform: "capitalize" }}>Export</Button>
+				<Button
+					sx={{ textTransform: "capitalize" }}
+					onClick={() => exportData()}
+				>
+					Export
+				</Button>
 			</Box>
-			<TableContainer component={Paper}>
+			<TableContainer component={Paper} id={"table"}>
 				<Table sx={{ minWidth: 650 }} aria-label="simple table">
 					<TableHead>
 						<TableRow>
